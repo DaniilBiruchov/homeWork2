@@ -9,7 +9,7 @@ const PostForm = ({create, setVisible}) => {
     function addNewPost (event) {
         event.preventDefault()
         const newPost = {
-            ...post, id: Date.now()
+            ...post, id: Date.now(), isChecked: false
         }
         create(newPost)
         setPost({title: '', description: ''})

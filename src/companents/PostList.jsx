@@ -1,7 +1,7 @@
 import React from 'react'
 import PostElement from "./PostElement"
 
-function PostList ({posts, onDelete, checked, onChange}) {
+function PostList ({posts, onDelete, onChange}) {
     return (
         <div>
             {
@@ -13,8 +13,10 @@ function PostList ({posts, onDelete, checked, onChange}) {
                         description={item.description} 
                         number={index + 1} 
                         onDelete={onDelete} 
-                        checked={checked} 
-                        onChange={onChange}/>
+                        checked={item.isChecked} 
+                        onChange={onChange}
+
+                        />
                 ))
             }
         </div>

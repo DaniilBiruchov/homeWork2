@@ -11,7 +11,7 @@ function PostElement ({title, description, number, id, onDelete, checked, onChan
     
     return (
         <div className="post">
-            <input type="checkbox" checked={checked} onChange={() => onChange()}/>
+            <input type="checkbox" checked={checked} onChange={() => onChange(id)}/>
             <p>{message}</p>
             <strong className="post__id">{number}</strong>
             <div className="post_info">

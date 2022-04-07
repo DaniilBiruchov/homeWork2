@@ -8,15 +8,15 @@ import Button from './companents/Button/Button';
 
 function App() {
   const [posts, setPosts] = useState([
-    {id: 1, title: 'JS', description: 'Programming language one'},
-    {id: 2, title: 'Pyton', description: 'Programming language two'},
-    {id: 3, title: 'PHP', description: 'Programming language three'},
-    {id: 4, title: 'Ruby', description: 'Programming language four'},
+    {id: 1, title: 'JS', description: 'Programming language one', isChecked: true},
+    {id: 2, title: 'Python', description: 'Programming language two', isChecked: false},
+    {id: 3, title: 'PHP', description: 'Programming language three', isChecked: true},
+    {id: 4, title: 'Ruby', description: 'Programming language four', isChecked: false},
   ]) 
 
   const [selectSort, setSelectSort] = useState('')
   const [isModalActive, setIsModalActive] = useState(false)
-  const [checked, setChecked] = useState(false)
+  // const [checked, setChecked] = useState(true)
 
   const createPost = (newPost) => {
     setPosts([...posts, newPost])
@@ -30,6 +30,12 @@ function App() {
   const sortPost = (sort) => {
     setSelectSort(sort)
     setPosts([...posts].sort((a, b) => a[sort].localeCompare(b[sort])))
+  }
+
+  const switchCheckbox = (id) => {
+    const postToUpdate = posts.find(post => post.id === id)
+    const others = posts.filter(post => post.id !== id)
+    setPosts([...others, {...postToUpdate, isChecked: !postToUpdate.isChecked}])
   }
 
   return (
@@ -51,7 +57,7 @@ function App() {
       </div>
       <Button onClick={() => setIsModalActive(true)}>Create post</Button>
       {posts.length !==0
-        ?<PostList posts={posts} onDelete={onPostDelete}  checked={checked} onChange={() => setChecked(!checked)}/>
+        ?<PostList posts={posts} onDelete={onPostDelete} onChange={switchCheckbox}/>
         :<div>The list of posts is empty</div>
       }
     </div>
