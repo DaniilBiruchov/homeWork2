@@ -1,7 +1,7 @@
-import React, { Children } from 'react';
+// import React, { Children } from 'react';
 import style from './Modal.module.css'
 
-const Modal = ({children, visible, setVisible}) => {
+const Modal = ({visible, setVisible}) => {
 
     const rootClasses = [style.modal]
     if (visible) {
@@ -11,7 +11,6 @@ const Modal = ({children, visible, setVisible}) => {
     return (
         <div className={rootClasses.join(' ')}>
             <div className={style.modalContent}>
-                {children}
             </div>
         </div>
     );
