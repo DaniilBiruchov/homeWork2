@@ -3,7 +3,7 @@
     height: 100px;
     border-radius: 50%;
     border: 3px dashed grey;
-    animation: rotate is infinite linear;
+    animation: rotate 1s infinite linear;
 }
 
 @keyframes rotate {

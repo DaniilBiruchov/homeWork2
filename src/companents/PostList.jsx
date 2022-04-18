@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import PostElement from "./PostElement"
 import {
     CSSTransition,
@@ -11,11 +11,12 @@ function PostList ({posts, onDelete, onChange}) {
         return <div>The list of posts is empty</div>
     }
 
+
     return (
         <div>
             <TransitionGroup>
                 {
-                    posts.map((item, index) =>
+                   posts.map((item, index) =>
                     <CSSTransition
                         key={item.id} 
                         timeout={500}

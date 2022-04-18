@@ -10,5 +10,22 @@
 }
 
 .App{
-  max-width: 800px;
+  width: 750px;
+}
+
+.header {
+  background: navy;
+  text-align: center;
+  padding: 2rem 0;
+}
+
+.header > a {
+  text-decoration: none;
+  margin-left: 15px;
+  color: white;  
+  min-height: 70px;
+}
+.active {
+  color: rgb(116, 236, 112);
+  
 }

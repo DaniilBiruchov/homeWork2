@@ -1,74 +1,27 @@
-import './App.css';
-import PostList from './companents/PostList.jsx'
-import { useState , useEffect, useMemo } from 'react';
-import PostForm from './companents/PostForm';
-import Modal from './companents/Modal/Modal';
-import Button from './companents/Button/Button';
-import PostFilter from './companents/PostFilter';
-import PostService from './API/PostService';
-import Loader from './companents/Loader/Loader';
+import React from "react";
+import './App.css'
+import { Routes, Route } from "react-router-dom";
+import Posts from "./companents/pages/Posts";
+import Home from "./companents/pages/Home.jsx"
+import About from "./companents/pages/About";
+import NotFound from "./companents/pages/NotFound";
+import Layout from "./companents/pages/Layout";
+import PostId from "./companents/pages/PostId";
 
 function App() {
-  const [posts, setPosts] = useState([
-    // {id: 1, title: 'JS', description: 'Programming language one', isChecked: false},
-    // {id: 2, title: 'Python', description: 'Programming language two', isChecked: false},
-    // {id: 3, title: 'PHP', description: 'Programming language three', isChecked: false},
-    // {id: 4, title: 'Ruby', description: 'Programming language four', isChecked: false},
-  ]) 
-
-  const [isModalActive, setIsModalActive] = useState(false)
-  const [filter, setFilter] = useState({sort: '', search: ''})
-  const [isPostsLoading, setIsPostsLoading] = useState(false)
-
-  const sortedPost = useMemo(() => {
-    if(filter.sort) {
-      return [...posts].sort((a, b) => a[filter.sort].localeCompare(b[filter.sort]))
-    }
-    return posts
-  }, [filter.sort, posts])
-
-  const sortedAndSearchPosts = useMemo (() => {
-    return sortedPost.filter(post => post.title.toLowerCase().includes(filter.search))
-  }, [filter.search, sortedPost])
-
-  useEffect(() => {
-    fetchPosts()
-  }, [])
-
-  const createPost = (newPost) => {
-    setPosts([...posts, newPost])
-  }
-
-  const onPostDelete = (id => {
-    const resultFilter = posts.filter(post => post.id !== id)
-    setPosts(resultFilter)
-  })
-
-  const switchCheckbox = (id) => {
-    const postToUpdate = posts.find(post => post.id === id)
-    const others = posts.filter(post => post.id !== id)
-    setPosts([...others, {...postToUpdate, isChecked: !postToUpdate.isChecked}])
-  }
-
-  const fetchPosts = async () => {
-    setIsPostsLoading (true)
-    const posts = await PostService.getAll()
-    setPosts(posts)
-    setIsPostsLoading (false)
-  }
+  
   return (
     <div className="App">
-      <Modal 
-        visible={isModalActive} 
-        setVisible={setIsModalActive}>
-        <PostForm create={createPost} setVisible={setIsModalActive}/>
-      </Modal>
-      <PostFilter filter={filter} setFilter={setFilter}/>
-      <Button onClick={() => setIsModalActive(true)}>Create post</Button>
-      {isPostsLoading
-      ?<div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}><Loader/></div>
-      :<PostList posts={sortedAndSearchPosts} onDelete={onPostDelete} onChange={switchCheckbox}/>
-      }
+     
+      <Routes>
+        <Route path="/" element={<Layout/>}>
+          <Route path="/" element={<Home/>}/>
+          <Route path="/posts" element={<Posts/>}/>
+          <Route path="/posts/:id" element={<PostId />}/>
+          <Route path="/about" element={<About/>}/>
+          <Route path="*" element={<NotFound/>}/>
+        </Route>
+      </Routes>
     </div>
   );
 }
