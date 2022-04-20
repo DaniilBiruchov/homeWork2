@@ -8,6 +8,7 @@ import PostFilter from '../PostFilter';
 import PostService from '../../API/PostService';
 import Loader from '../Loader/Loader';
 
+
 const Posts = () => {
     const [posts, setPosts] = useState([
         // {id: 1, title: 'JS', description: 'Programming language one', isChecked: false},
@@ -19,7 +20,10 @@ const Posts = () => {
       const [isModalActive, setIsModalActive] = useState(false)
       const [filter, setFilter] = useState({sort: '', search: ''})
       const [isPostsLoading, setIsPostsLoading] = useState(false)
+      
     
+
+
       const sortedPost = useMemo(() => {
         if(filter.sort) {
           return [...posts].sort((a, b) => a[filter.sort].localeCompare(b[filter.sort]))

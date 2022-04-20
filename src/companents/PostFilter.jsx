@@ -2,7 +2,9 @@ import React from 'react';
 import Input from './Input/Input';
 import Select from './Select/Select';
 
+
 const PostFilter = ({filter, setFilter}) => {
+
     return (
         <div>
             <Input
