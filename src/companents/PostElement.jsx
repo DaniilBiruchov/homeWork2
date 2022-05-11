@@ -3,7 +3,7 @@ import './PostElement.css'
 import Button from './Button/Button'
 import { Link } from 'react-router-dom'
 
-function PostElement ({title, body, number, id, onDelete, checked, onChange}) {
+function PostElement ({title, body, number, id, onDelete, checked, onChange, updateCurrentPost}) {
     let message = ''
     if (checked) {
         message = <p>{body}</p>
@@ -22,6 +22,7 @@ function PostElement ({title, body, number, id, onDelete, checked, onChange}) {
             <p>{message}</p> 
             <div className='post__btn'>
                 <Button onClick={() => onDelete(id)} className="post__btn">Delete</Button>
+                <Button onClick={() => updateCurrentPost(id)} className="post__btn">update</Button>
                 <Link to={`/posts/${id}`}><Button>Open Post</Button></Link>
             </div>
         </div>

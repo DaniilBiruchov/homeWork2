@@ -1,13 +1,14 @@
 import React from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate, Link } from 'react-router-dom'
-import PostService from '../../API/PostService';
+import { getCurrentPostThunk, getCommentsPostThunk } from '../../redux/PostsReducer';
 import Button from '../Button/Button'
 
 const PostId = () => {
-    const [post, setPost] = useState({})
-    const [comments, setComments] = useState([])
-
+    const dispatch = useDispatch()
+    const post = useSelector(state => state.postsReducer.currentPost)
+    const comments = useSelector(state => state.postsReducer.currentPost.comments)
     const params = useParams()
     const navigate = useNavigate()
 
@@ -16,27 +17,12 @@ const PostId = () => {
     }
 
     useEffect(()=> {
-        fetchPosts(params.id)
-        fetchPostComments(params.id)
-    }, [params.id])
+      dispatch(getCurrentPostThunk(params.id))
+      dispatch(getCommentsPostThunk(params.id))
+    }, [])
 
-
-    const fetchPosts = async () => {
-        const post = await PostService.getById(params.id)
-        setPost(post)
-      }
-
-      
-    const fetchPostComments = async () => {
-        const comments =  await PostService.getCommentsByPostId(params.id)
-        setComments(comments)
-    }
-
-    
     return (
         <div>
-      {/* 1 */}
-
       <div>
         {post && (
           <div>
@@ -46,10 +32,10 @@ const PostId = () => {
               <div style={{marginTop:"25px"}}> 
                  <h3>Comments:</h3>
                  <div>
-                   {comments.map(comm=>
+                   {comments&& comments.map(comm=>
                     <div  key={comm.id} style={{marginTop:"15px"}}>
-                      <h5>{comm.email}</h5>
-                      <div>{comm.body}</div>
+                        <h5>{comm.email}</h5>
+                        <div>{comm.body}</div>
                     </div>)}
                  </div>
                  

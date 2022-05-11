@@ -6,7 +6,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 const Login = () => {
 
-    const {isAuth, setIsAuth} = useContext(AuthContext)
+    const { setIsAuth } = useContext(AuthContext)
 
     const location = useLocation()
     const navigate = useNavigate()

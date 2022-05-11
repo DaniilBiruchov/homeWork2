@@ -6,7 +6,7 @@ import {
   } from 'react-transition-group'
 import './PostElement.css'
 
-function PostList ({posts, onDelete, onChange}) {
+function PostList ({posts, onDelete, onChange, updateCurrentPost}) {
     if(!posts.length) {
         return <div>The list of posts is empty</div>
     }
@@ -27,6 +27,7 @@ function PostList ({posts, onDelete, onChange}) {
                             title={item.title} 
                             body={item.body} 
                             number={index + 1} 
+                            updateCurrentPost = {updateCurrentPost}
                             onDelete={onDelete} 
                             checked={item.isChecked} 
                             onChange={onChange}

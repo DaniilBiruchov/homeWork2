@@ -13,6 +13,11 @@
   width: 750px;
 }
 
+.App.dark {
+  background: rgb(85, 33, 14);
+  color: white;
+}
+
 .header {
   background: navy;
   text-align: center;
